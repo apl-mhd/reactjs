@@ -7,7 +7,7 @@ import Lifting from './Lifting';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-root.render()
+root.render(<Lifting/>)
 
 
 

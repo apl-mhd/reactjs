@@ -98,8 +98,8 @@ fetchUsers(){
      const listItems = this.state.users.map((user) =>{
        return(
 
-              <tbody>
-                <tr key={user.id}>
+              <tbody key={user.id}>
+                <tr>
                   <td>{user.first_name}</td>
                   <td>{user.last_name}</td>
                   <td>{user.email}</td>
@@ -153,7 +153,7 @@ fetchUsers(){
 
           <div>
 
-          <table class="table table-striped">
+          <table className="table table-striped">
               <thead>
                 <tr>
                   <th scope="col">First Name</th>

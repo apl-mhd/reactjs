@@ -7,11 +7,11 @@ import Lifting from './Lifting';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-root.render(<Lifting/>)
+//root.render(<Lifting/>)
 
 
 
-// root.render(<App/>)
+ root.render(<App/>)
 
 
 // const scaleNames = {

@@ -126,15 +126,18 @@ fetchUsers(){
 
      const listItems = this.state.users.map((user) =>{
        return(
-
-              <tbody key={user.id}>
+          
+             <tbody key={user.id}>
                 <tr>
                   <td>{user.first_name}</td>
                   <td>{user.last_name}</td>
                   <td>{user.email}</td>
                   <td>{user.username}</td>
+                  <td> {user.image} </td>
                 </tr>  
               </tbody>
+            
+             
        )
      }    
             
@@ -189,6 +192,7 @@ fetchUsers(){
                   <th scope="col">Last Name</th>
                   <th scope="col">Email</th>
                   <th scope="col">Username</th>
+                  <th scope="col">Image</th>
                 </tr>
               </thead>
               

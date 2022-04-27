@@ -95,8 +95,8 @@ fetchUsers(){
     this.fetchUsers()
 
    
-      var csrftoken = this.getCookie('csrftoken')
-      axios.post(url, formData);
+    var csrftoken = this.getCookie('csrftoken')
+    axios.post(url, formData);
 
 
     // fetch(url, {

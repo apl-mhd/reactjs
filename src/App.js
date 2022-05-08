@@ -23,6 +23,7 @@ class App extends React.Component{
   }
 
 componentWillMount(){
+  console.log('mount')
   this.fetchUsers()
 }
 
@@ -40,6 +41,8 @@ fetchUsers(){
   handleChange(e){
     var name = e.target.name
     var value = e.target.value
+        this.fetchUsers()    
+
     
     this.setState({
       [name]: value

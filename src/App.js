@@ -19,12 +19,27 @@ class App extends React.Component{
     this.handleSubmit = this.handleSubmit.bind(this)
     this.fileChange = this.fileChange.bind(this)
     this.fetchUsers = this.fetchUsers.bind(this)
+    this.deleteUser = this.deleteUser.bind(this)
 
   }
 
-componentWillMount(){
+componentDidMount(){
   console.log('mount')
   this.fetchUsers()
+}
+
+deleteUser(id, e){
+  e.preventDefault()
+  console.log(id,'delete')
+  
+  axios.delete(`http://127.0.0.1:8000/api/auth/delete-user/${id}/ `)
+  .then(response => {
+       console.log(response.data)
+       this.fetchUsers()
+  })
+
+
+
 }
 
 fetchUsers(){
@@ -32,6 +47,7 @@ fetchUsers(){
   fetch('http://127.0.0.1:8000/api/auth/users/')
   .then(response => response.json())
   .then(data => {
+    console.log(data)
     this.setState({
       users: data
     })
@@ -56,7 +72,9 @@ fetchUsers(){
   }
 
   handleSubmit(e){
+  
     e.preventDefault();
+    console.log('first')
     const formData = new FormData();
     var url = 'http://127.0.0.1:8000/api/auth/create-user/'
 
@@ -66,8 +84,10 @@ fetchUsers(){
     formData.append('last_name', this.state.last_name);
     formData.append('email', this.state.email);
 		formData.append('image', this.state.image);
-		axios.post(url, formData);
-    this.fetchUsers()    
+		axios.post(url, formData).then(response =>
+          this.fetchUsers()    
+);
+
   }
 
   render( ){
@@ -82,13 +102,14 @@ fetchUsers(){
                   <td>{user.email}</td>
                   <td>{user.username}</td>
                   <td> {user.image} </td>
-                </tr>  
+                  <td> <button onClick={ (e) => this.deleteUser(user.id, e)} >Delete</button> </td>
+                </tr>   
               </tbody>  
        )
      }    
             
   );
-    
+    //href="http://127.0.0.1:8000/api/auth/delete-user/96/" 
     
     return(
 
@@ -137,6 +158,7 @@ fetchUsers(){
                   <th scope="col">Email</th>
                   <th scope="col">Username</th>
                   <th scope="col">Image</th>
+                  <th scope="col">Delete</th>
                 </tr>
               </thead>
               

@@ -8,25 +8,29 @@ class Login extends React.Component{
          this.state = {
             username: '',
              password: '',
+             token: false
          }
+
          this.handleChange = this.handleChange.bind(this)
          this.handleSubmit = this.handleSubmit.bind(this)
-         //this.fetchUser = this.fetchUser.bind(this)
+         this.allUser = this.allUser.bind(this)  
+         this.logedUser = this.logedUser.bind(this)
      }
 
-    //  componentDidMount(){
-    //      this.fetchUser()
-    //      console.log('mount')
-    //  }
 
-    //  fetchUser(){
-    //      fetch('http://127.0.0.1:8000/api/auth/u/')
-    //      .then(response => response.json())
-    //      .then(data =>{
-    //          //console.log(data)
-    //      })
-    //  }
+     allUser(){
+         axios.get(`http://127.0.0.1:8000/api/auth/users/`)
+         .then(response => {
+             console.log(response.data)
+             
+         })
+     }
 
+     componentDidMount(){
+       // this.allUser()
+     }
+
+   
       handleChange(e){
         var name = e.target.name
         var value =e.target.value
@@ -35,7 +39,18 @@ class Login extends React.Component{
             [name]: value
         })
 
-        console.log(this.state)
+    }
+
+    logedUser(e){
+        e.preventDefault();
+        console.log('submit');
+        const formData = new FormData()
+        var url = 'http://127.0.0.1:8000/api/auth/loged-user/'
+        formData.append('token', localStorage.getItem('token'))
+        axios.post(url, formData).then(response=>{
+            console.log(response)
+        })
+
     }
 
     handleSubmit(e){
@@ -47,8 +62,10 @@ class Login extends React.Component{
 
         formData.append('handle', this.state.username)
         formData.append('password', this.state.password)
-        axios.post(url, formData).then(data => console.log(data.data))
-        // console.log('success')
+        axios.post(url, formData).then(response => {
+                console.log(this.state)
+            localStorage.setItem('token', response.data['jwt'])
+        })  
 
     }
 
@@ -62,6 +79,11 @@ class Login extends React.Component{
                     <span>Password</span>
                     <input onChange={this.handleChange}  type="password" name="password"/> <br/>
                     <input  type="submit" value="Login"/>
+                </form>
+
+                <form onSubmit={this.logedUser}>
+                    <input type="submit" value="loged in" />
+
                 </form>
             </div>        
             )   

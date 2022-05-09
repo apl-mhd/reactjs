@@ -3,8 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import Login from './Login';
+import Alluser from './Alluser';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
- //root.render(<App/>)
- root.render(<Login/>)
+
+root.render(<Alluser/>)
+//root.render(<App/>)
+ //root.render(<Login/>)
 
